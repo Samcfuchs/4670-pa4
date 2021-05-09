@@ -134,7 +134,7 @@ class Shift(object):
         shift_image = np.zeros_like(image)
 
         # I love python indexing!
-        shift_image[max(0,y):H+y,max(0,x):W+x] = image[max(0,-y):H-y,max(0,-x):W-x]
+        shift_image[:,max(0,y):H+y,max(0,x):W+x] = image[:,max(0,-y):H-y,max(0,-x):W-x]
 
         # TODO-BLOCK-END
 
