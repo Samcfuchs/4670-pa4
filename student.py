@@ -188,7 +188,7 @@ class Contrast(object):
 
         normalized_adj = normalized * adjust
 
-        shift_image = normalized_adj + mean
+        shift_image = normalized_adj + means
 
         # TODO-BLOCK-END
 
