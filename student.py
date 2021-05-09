@@ -26,8 +26,9 @@ class AnimalBaselineNet(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 3, 2, 1)
         self.conv2 = nn.Conv2d(6, 12, 3, 2, 1)
         self.conv3 = nn.Conv2d(12, 24, 3, 2, 1)
-        self.fc = nn.Linear(64, 128)
-        self.cls = nn.Linear(128, 16)
+        self.fc = nn.Linear(1536, 128)
+        self.cls = nn.Linear(128, num_classes)
+
         self.relu = nn.ReLU()
 
         # TODO-BLOCK-END
@@ -73,10 +74,24 @@ def model_train(net, inputs, labels, criterion, optimizer):
     # TODO: Foward pass
     # TODO-BLOCK-BEGIN
 
+    total_images = inputs.shape[0]
+    #print(inputs.shape)
+
+    y_pred = net(inputs)
+
+    running_loss = criterion(y_pred, labels.squeeze())
+
+    y_pred_cls = y_pred.argmax(axis=1)
+    num_correct = (y_pred_cls == labels.squeeze()).sum()
+
     # TODO-BLOCK-END
 
     # TODO: Backward pass
     # TODO-BLOCK-BEGIN
+
+    optimizer.zero_grad()
+    running_loss.backward()
+    optimizer.step()
 
     # TODO-BLOCK-END
 
