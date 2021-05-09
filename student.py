@@ -261,7 +261,7 @@ class HorizontalFlip(object):
         # TODO: Flip image
         # TODO-BLOCK-BEGIN
 
-        flipped_image = image[:, ::-1, :]
+        flipped_image = np.flip(image, axis=1).copy()
 
         # TODO-BLOCK-END
 
