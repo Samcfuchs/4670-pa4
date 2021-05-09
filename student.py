@@ -23,6 +23,13 @@ class AnimalBaselineNet(nn.Module):
         # TODO: Define layers of model architecture
         # TODO-BLOCK-BEGIN
 
+        self.conv1 = nn.Conv2d(3, 6, 3, 2, 1)
+        self.conv2 = nn.Conv2d(6, 12, 3, 2, 1)
+        self.conv3 = nn.Conv2d(12, 24, 3, 2, 1)
+        self.fc = nn.Linear(64, 128)
+        self.cls = nn.Linear(128, 16)
+        self.relu = nn.ReLU()
+
         # TODO-BLOCK-END
 
     def forward(self, x):
@@ -31,8 +38,14 @@ class AnimalBaselineNet(nn.Module):
         # TODO: Define forward pass
         # TODO-BLOCK-BEGIN
 
+        z = self.relu(self.conv1(x))
+        z = self.relu(self.conv2(z))
+        z = self.relu(self.conv3(z))
+        z = self.relu(self.fc(z))
+        z = self.cls(z)
+
         # TODO-BLOCK-END
-        return x
+        return z
 
 def model_train(net, inputs, labels, criterion, optimizer):
     """
