@@ -142,9 +142,22 @@ class Contrast(object):
         # TODO: Change image contrast
         # TODO-BLOCK-BEGIN
 
+        # Generate a random scalar between min_contrast and max_contrast
+        adjust = np.random.uniform(low=self.min_contrast, high=self.max_contrast)
+
+        mean = image.mean(axis=(1,2))
+        means = np.resize(mean, (3, H, W))
+
+        # TODO echo mean around the block
+        normalized = image - means
+
+        normalized_adj = normalized * adjust
+
+        shift_image = normalized_adj + mean
+
         # TODO-BLOCK-END
 
-        return torch.Tensor(image)
+        return torch.Tensor(shift_image)
 
     def __repr__(self):
         return self.__class__.__name__
