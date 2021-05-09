@@ -191,6 +191,8 @@ class Rotate(object):
         # TODO: Rotate image
         # TODO-BLOCK-BEGIN
 
+        theta = np.random.uniform(low=-self.max_angle, high=self.max_angle)
+
         # TODO-BLOCK-END
 
         return torch.Tensor(image)
@@ -224,9 +226,11 @@ class HorizontalFlip(object):
         # TODO: Flip image
         # TODO-BLOCK-BEGIN
 
+        flipped_image = image[:, ::-1, :]
+
         # TODO-BLOCK-END
 
-        return torch.Tensor(image)
+        return torch.Tensor(flipped_image)
 
     def __repr__(self):
         return self.__class__.__name__
