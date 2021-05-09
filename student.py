@@ -38,14 +38,14 @@ class AnimalBaselineNet(nn.Module):
         # TODO: Define forward pass
         # TODO-BLOCK-BEGIN
 
-        z = self.relu(self.conv1(x))
-        z = self.relu(self.conv2(z))
-        z = self.relu(self.conv3(z))
-        z = self.relu(self.fc(z))
-        z = self.cls(z)
+        z1 = self.relu(self.conv1(x))
+        z2 = self.relu(self.conv2(z1))
+        z3 = self.relu(self.conv3(z2))
+        z4 = self.relu(self.fc(z3.reshape(x.shape[0],1536)))
+        z5 = self.cls(z4)
 
         # TODO-BLOCK-END
-        return z
+        return z5
 
 def model_train(net, inputs, labels, criterion, optimizer):
     """
