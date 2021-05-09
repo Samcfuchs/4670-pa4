@@ -114,9 +114,16 @@ class Shift(object):
         # TODO: Shift image
         # TODO-BLOCK-BEGIN
 
+        x,y = np.random.uniform(low=-self.max_shift, high=self.max_shift, size=2)
+
+        shift_image = np.zeros_like(image)
+
+        # I love python indexing!
+        shift_image[max(0,y):H+y,max(0,x):W+x] = image[max(0,-y):H-y,max(0,-x):W-x]
+
         # TODO-BLOCK-END
 
-        return torch.Tensor(image)
+        return torch.Tensor(shift_image)
 
     def __repr__(self):
         return self.__class__.__name__
