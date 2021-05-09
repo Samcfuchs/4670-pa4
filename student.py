@@ -129,7 +129,7 @@ class Shift(object):
         # TODO: Shift image
         # TODO-BLOCK-BEGIN
 
-        x,y = np.random.uniform(low=-self.max_shift, high=self.max_shift, size=2)
+        x,y = np.random.randint(low=-self.max_shift, high=self.max_shift, size=2)
 
         shift_image = np.zeros_like(image)
 
