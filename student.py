@@ -4,6 +4,7 @@
 import numpy as np
 import cv2
 import random
+from scipy import ndimage
 
 import torch
 import torch.nn as nn
@@ -227,6 +228,7 @@ class Rotate(object):
         # TODO-BLOCK-BEGIN
 
         theta = np.random.uniform(low=-self.max_angle, high=self.max_angle)
+        image = ndimage.rotate(image, theta, mode="constant", axes=(1,2), order=1)
 
         # TODO-BLOCK-END
 
