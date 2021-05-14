@@ -182,14 +182,17 @@ class Contrast(object):
         adjust = np.random.uniform(low=self.min_contrast, high=self.max_contrast)
 
         mean = image.mean(axis=(1,2))
-        means = np.resize(mean, (3, H, W))
+
+        means = np.ones_like(image)
+        for i in range(mean.shape[0]):
+            means[i] *= mean[i]
 
         # TODO echo mean around the block
         normalized = image - means
 
         normalized_adj = normalized * adjust
 
-        shift_image = normalized_adj + means
+        shift_image = np.clip(normalized_adj + means, 0, 1)
 
         # TODO-BLOCK-END
 
