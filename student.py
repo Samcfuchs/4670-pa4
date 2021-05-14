@@ -353,6 +353,16 @@ def get_adversarial(img, output, label, net, criterion, epsilon):
     # TODO: Define forward pass
     # TODO-BLOCK-BEGIN
 
+    loss = criterion(output, label)
+    loss.backward()
+
+    noise = epsilon * torch.sign(img.grad)
+
+    assert img.shape == noise.shape
+    assert img.grad.shape == img.shape
+
+    perturbed_image = torch.clamp(img + noise, 0, 1)
+
     # TODO-BLOCK-END
 
     return perturbed_image, noise
